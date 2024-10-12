@@ -1,0 +1,27 @@
+{% extends 'html/base.html' %}
+{% block title %}Room Fee{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-5 mx-auto shadow-lg">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {% for i in x %}
+                {{i}}
+            {% endfor %}
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'pr' %}" class="form-control my-2 btn btn-outline-info">Back</a>
+                </div>
+                <div class="col">
+                    <input type="reset" value="Clear" class="form-control my-2 btn btn-outline-danger">
+                </div>
+                <div class="col">
+                    <input type="submit" value="Submit" class="form-control my-2 btn btn-outline-success">
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'html/base.html' %}
+{% block title %}Duty{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="card shadow-lg bg-transparent">
+        <div >
+            {% if request.user.role2 == 'Receptionist' %}
+                <img src="https://kasal.com/wp-content/uploads/2017/05/1535594_103_z.jpg" width="101%" height="650px">
+            {% elif request.user.role2 == 'House Keeping' %}
+            <img src="https://www.hoteliermiddleeast.com/2021/05/RgSUFazp-housekeeping-2.jpg" width="100%" height="650px">
+            {% elif request.user.role2 == 'Porter' %}
+                <p><img src="https://d37j6posq2fmgz.cloudfront.net/resources/1692,5,1,6,3,0/-4601-/20150326224914/porter-service.jpeg" width="100%" height="650px"></p>
+            {% elif request.user.role2 == 'Restaurant Staff' %}
+            <img src="https://oventionovens.com/wp-content/uploads/2020/06/bigstock-Restaurant-Staff-Team-Directo-243610603-scaled.jpg" width="100%" height="650px">
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

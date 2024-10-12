@@ -1,0 +1,101 @@
+{% extends 'html/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<style type="text/css">
+    .errorlist{
+        list-style-type: none;
+        color:red;
+        margin:0px;
+        padding:0px;
+    }
+</style>
+<div class="container-fluid mt-4">
+    <div class="row m-2">
+        {% if request.user.pfupd == 1 or request.user.is_superuser %}
+        <div class="col-md-3 mx-auto card shadow-lg h-100 mt-5">
+            <div class="card-body">
+                <h3 style="text-align: center;">Create User</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <h4 style="color:red">{{ab}}</h4>
+                    {% for i in w %}
+                        {{i}}
+                        {% for e in p %}
+                            {% if e.0 in i.label_tag %}
+                                {{e.1}}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="reset" value="Clear" class="form-control btn btn-outline-danger my-2">
+                        </div>
+                        <div class="col">
+                            <input type="submit" value="Create" class="form-control btn btn-outline-success my-2">
+                        </div>
+                    </div>
+                </form>
+                {% if messages %}
+                    {% for m in messages %}
+                    <div class="alert alert-{{m.tags}} alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{m}}
+                      </div>                      
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-7 mx-auto card shadow-lg h-100">
+            <div class="card-body">
+                <h3 style="text-align: center;color: blue;">**User List**</h3><br>
+                <table class="table">
+                    <tr>
+                        <th>Sno</th>
+                        <th>Username</th>
+                        <th>Roll Type</th>
+                        {% if request.user.role2 != 'Receptionist' %}
+                        <th>Actions</th>
+                        {% endif %}
+                    </tr>
+                    {% for j in k %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{j.username}}</td>
+                        <td>
+                            {% if j.is_superuser %}
+                                <p class="badge badge-success">Admin</p>
+                            {% elif j.role1 == 'User' %}
+                                <p class="badge badge-danger">User</p>
+                            {% elif j.role1 == 'Staff' %}
+                                <p class="badge badge-info">{{j.role2}}</p>
+                            {% elif j.role1 == 'Guest' %}
+                                <p class="badge badge-warning">Guest</p>
+                            {% endif %}
+                        </td>
+                        {% if request.user.role2 != 'Receptionist' %}
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="{% url 'upd' j.id %}" class="btn btn-outline-info form-control">Update</a>
+                                </div>
+                                <div class="col">
+                                    <a href="{% url 'del' j.id %}" class="btn btn-outline-danger form-control">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                
+            </div>
+        </div>
+        {% else %}
+            <p><strong>Welcome {{request.user}},</strong></p>
+            <br>
+            <p>Please update your profile!!</p>
+        {% endif %}
+    </div>
+    
+</div>
+{% endblock %}

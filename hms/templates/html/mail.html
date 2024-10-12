@@ -1,0 +1,40 @@
+{% extends 'html/base.html' %}
+{% block title %}Mail sending{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-5 mx-auto shadow-lg bg-secondary">
+        {% if messages %}
+            {% for i in messages %}
+                {% if i.tags == "warning" %}
+                    <div class="alert alert-danger alert-dismissible mt-2">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{i}}
+                    </div>
+                {% else %}
+                    <div class="alert alert-{{i.tags}} alert-dismissible mt-2">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{i}}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <div class="card-body">
+            <h3 style="text-align: center;">Send a Mail</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="email" name="sn" placeholder="Enter your Email id" class="form-control my-3">
+                <input type="text" name="sb" placeholder="Enter subject" class="form-control my-3">
+                <textarea name="msg" placeholder="Enter description" rows="3" class="form-control my-3"></textarea>
+                <div class="row">
+                    <div class="col">
+                        <input type="reset" value="Clear" class="btn btn-block btn-danger my-2 form-control w-75">
+                    </div>
+                    <div class="col">
+                        <input type="submit" value="Send mail" class="btn btn-block btn-success my-2 w-75 float-right">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

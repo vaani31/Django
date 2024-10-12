@@ -1,0 +1,80 @@
+{% extends 'html/base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="card col-md-2 mx-auto col-sm-3 shadow-lg h-100">
+            <div class="card-body text-center">
+                <img src="{{request.user.pfimag.url}}" class="rounded-circle" height="120px" width="90%">
+                <h3>{{request.user.username}}</h3>
+            </div>
+        </div>
+        <div class="card col-md-7 mx-auto shadow-lg">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h1 style="color:brown; text-align:right;">Details</h1>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'updpf' %}" class="btn btn-outline-info form-control w-50 float-right">Update profile</a>
+                    </div>
+                </div>
+                <table class="table">
+                    <tr>
+                        <th>Username</th>
+                        <td>{{request.user.username}}</td>
+                    </tr>
+                    <tr>
+                        <th>Role</th>
+                        <td>
+                            {% if request.user.role1 == 'Guest' %}
+                                <p class="badge badge-success">Guest</p>
+                            {% elif  request.user.role1 == 'Staff' %}
+                                <p class="badge badge-warning">{{request.user.role2}}</p>
+                            {% elif  request.user.role1 == 'User' %}
+                                <p class="badge badge-info">User</p>
+                            {% else %}
+                                <p class="badge badge-primary">Admin</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>First Name</th>
+                        <td>{{request.user.first_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <td>{{request.user.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth</th>
+                        <td>{{request.user.dob}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email ID</th>
+                        <td>{{request.user.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile Number</th>
+                        <td>{{request.user.mbl}}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{request.user.adrs}}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>
+                            {% if request.user.gndr == '1' %}
+                            <p>Female</p>
+                            {% elif request.user.gndr == '2' %}
+                            <p>Male</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

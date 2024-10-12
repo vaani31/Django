@@ -1,0 +1,76 @@
+{% extends 'html/base.html' %}
+{% block title %}Feedback{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-5 mx-auto shadow-lg">
+        <div class="card-body">
+            <h3>Reviews</h3>
+            <table class="table">
+                {% if request.user.is_superuser %}
+                <tr>
+                    <th>Type</th>
+                    <th>Feedback</th>
+                    <th>Feedback given by</th>
+                </tr>
+                {% for q in t %}
+                <tr>
+                    <td>
+                        {% if q.fdtp == 'Receptionist' %}
+                            <p class="badge badge-danger">Receptionist</p>
+                        {% elif q.fdtp == 'House Keeping' %}
+                            <p class="badge badge-info">House Keeping</p>
+                        {% elif q.fdtp == 'Porter' %}
+                            <p class="badge badge-warning">Porter</p>
+                        {% elif q.fdtp == 'Restaurant Staff' %}
+                            <p class="badge badge-primary">Restaurant Staff</p>
+                        {% endif %}
+                    </td>
+                    <td>{{q.fd}}</td>
+                    <td>
+                        {% for i in u %}
+                            {% if forloop.parentloop.counter == forloop.counter %}
+                                {{i}}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% elif request.user.pfupd == 1 %}
+                <tr>
+                    <th>Type</th>
+                    <th>Feedback</th>
+                    <th>Feedback given by</th>
+                </tr>
+                {% for q in v %}
+                <tr>
+                    <td>
+                        {% if q.fdtp == 'Receptionist' %}
+                            <p class="badge badge-danger">Receptionist</p>
+                        {% elif q.fdtp == 'House Keeping' %}
+                            <p class="badge badge-info">House Keeping</p>
+                        {% elif q.fdtp == 'Porter' %}
+                            <p class="badge badge-warning">Porter</p>
+                        {% elif q.fdtp == 'Restaurant Staff' %}
+                            <p class="badge badge-primary">Restaurant Staff</p>
+                        {% endif %}
+                    </td>
+                    <td>{{q.fd}}</td>
+                    <td>
+                        {% for i in s %}
+                            {% if forloop.parentloop.counter == forloop.counter %}
+                                {{i}}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <hr>
+                <p><strong>Welcome {{request.user}},</strong></p>
+                <p>Please update your profile!!</p>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

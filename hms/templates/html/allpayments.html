@@ -1,0 +1,41 @@
+{% extends 'html/base.html' %}
+{% block title %}All Payments{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-5 mx-auto shadow-lg">
+        <div class="card-body">
+            <h3>All Payments</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <th>Payment proof</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for i in a %}
+                    <tr>
+                        <td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="{{i.payatch.url}}" height="120px" width="90%">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="" class="form-control my-2 btn btn-outline-info">Edit</a>
+                                </div>
+                                <duv class="col">
+                                    <input type="submit" value="Delete" class="form-control my-2 btn btn-outline-danger">
+                                </duv>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'html/base.html' %}
+{% block title %}Amount{% endblock %}
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="card col-md-7 mx-auto shadow-lg">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'py' %}" class="form-control my-2 btn btn-outline-info">Back</a>
+                </div>
+                <div class="col">
+                    <h3 style="text-align: center;">Total Amount to book a room</h3>
+                </div>
+                <div class="col"></div>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>Room Type</th>
+                    <th>User</th>
+                    <th>Duration</th>
+                    <th>Amount per day</th>
+                    <th>Total amount</th>
+                </tr>
+                {% if request.user.role1 == 'User' %}
+                {% for i in a %}
+                <tr>
+                    {% for j in q %}
+                        {% if forloop.parentloop.counter == forloop.counter %}
+                            {% if j == request.user.username %}
+                                <td>
+                                    {% if i.rbtype == '1N' %}
+                                        <p>1-Adult/Room(Non-AC)</p>
+                                    {% elif i.rbtype == '2N' %}
+                                        <p>2-Adults/Room(Non-AC)</p>
+                                    {% elif i.rbtype == '1A' %}
+                                        <p>1-Adult/Room(AC)</p>
+                                    {% elif i.rbtype == '2A' %}
+                                        <p>2-Adults/Room(AC)</p>
+                                    {% else %}
+                                    {% endif %}
+                                </td>
+                                <td>{{j}}</td>
+                                <td>
+                                    {% for j in c %}
+                                        {% if forloop.parentloop.counter == forloop.counter %}
+                                            {{j}}
+                                            {{"days"}}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            
+                                <td>
+                                    {% for j in f %}
+                                        {% if j.rtp == i.rbtype %}
+                                            {{j.rfee}}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>{{i.amt}}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                </tr>
+                {% endfor %}
+                {% else %}
+                {% for i in a %}
+                <tr>
+                    <td>
+                        {% if i.rbtype == '1N' %}
+                            <p>1-Adult/Room(Non-AC)</p>
+                        {% elif i.rbtype == '2N' %}
+                            <p>2-Adults/Room(Non-AC)</p>
+                        {% elif i.rbtype == '1A' %}
+                            <p>1-Adult/Room(AC)</p>
+                        {% elif i.rbtype == '2A' %}
+                            <p>2-Adults/Room(AC)</p>
+                        {% else %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for i in q %}
+                            {% if forloop.parentloop.counter == forloop.counter %}
+                                {{i}}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for j in c %}
+                            {% if forloop.parentloop.counter == forloop.counter %}
+                                {{j}}
+                                {{"days"}}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <!-- {% if i.rbtype == '1N' %}
+                            <p>1800</p>
+                        {% elif i.rbtype == '2N' %}
+                            <p>1500</p>
+                        {% elif i.rbtype == '1A' %}
+                            <p>3000</p>
+                        {% elif i.rbtype == '2A' %}
+                            <p>2000</p>
+                        {% else %}
+                        {% endif %} -->
+                        {% for j in f %}
+                            {% if j.rtp == i.rbtype %}
+                                {{j.rfee}}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{i.amt}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

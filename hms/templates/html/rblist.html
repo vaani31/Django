@@ -1,0 +1,83 @@
+{% extends 'html/base.html' %}
+{% block title %}Booking{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md mx-auto shadow-lg" style="background-color:rgb(240, 204, 217)">
+        <div class="card-body">
+            <h3 style="text-align: center;">Room Booking Requests</h3>
+            <br>
+            <table class="table">
+                <tr>
+                    <th>Sno</th>
+                    <th>Sharing</th>
+                    <th>Booked Date</th>
+                    <th>Check in</th>
+                    <th>Check out</th>
+                    <th>ID Proof</th>
+                    <th>Payment Proof</th>
+                    <th>Booking Status</th>
+                    <th>Actions</th>
+                </tr>
+                {% for i in r %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            {% if i.rbtype == '1N' %}
+                                <p>1-Adult/Room(Non-AC)</p>
+                            {% elif i.rbtype == '2N' %}
+                                <p>2-Adults/Room(Non-AC)</p>
+                            {% elif i.rbtype == '1A' %}
+                                <p>1-Adults/Room(AC)</p>
+                            {% elif i.rbtype == '2A' %}
+                                <p>2-Adults/Room(AC)</p>
+                            {% else %}
+                            {% endif %}
+                        </td>
+                        <td>{{i.apldate}}</td>
+                        <td>{{i.startdate}}</td>
+                        <td>{{i.enddate}}</td>
+                        <td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="{{i.idatch.url}}" height="120px" width="100%">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {% for j in s %}
+                                {% if forloop.parentloop.counter == forloop.counter %}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <img src="{{j.payatch.url}}" height="120px" width="100%">
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if i.rbstatus == 'p' %}
+                                <p class="badge badge-primary">Pending</p>
+                            {% elif i.rbstatus == 'a' %}
+                                <p class="badge badge-success">Approved</p>
+                            {% elif i.rbstatus == 'd' %}
+                                <p class="badge badge-danger">Declined</p>
+                            {% else %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="{% url 'rbup' i.id %}" class="btn btn-outline-info form-control my-2">Edit</a>
+                                </div>
+                                <div class="col">
+                                    <a href="{% url 'rbdel' i.id %}" class="btn btn-outline-danger form-control my-2">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

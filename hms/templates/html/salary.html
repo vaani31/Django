@@ -1,0 +1,97 @@
+{% extends 'html/base.html' %}
+{% block title %}Salary{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-7 mx-auto shadow-lg">
+        <div class="card-body">
+            <h3>Salary</h3>
+            <hr>
+            {% if request.user.is_superuser %}
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Salary</th>
+                    <th>Credited Salary</th>
+                    <th>Status</th>
+                    <th style="text-align: center;">Actions</th>
+                </tr>
+                {% for i in y %}
+                    <tr>
+                        <td>{{i.stn}}</td>
+                        <td>
+                            {% if i.sttp == 'Receptionist' %}
+                                <p class="badge badge-danger">Receptionist</p>
+                            {% elif i.sttp == 'House Keeping' %}
+                                <p class="badge badge-info">House Keeping</p>
+                            {% elif i.sttp == 'Porter' %}
+                                <p class="badge badge-warning">Porter</p>
+                            {% elif i.sttp == 'Restaurant Staff' %}
+                                <p class="badge badge-primary">Restaurant Staff</p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{i.salary}}
+                        </td>
+                        <td>
+                            {{i.crsal}}
+                        </td>
+                        <td>
+                            {{i.status}}
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="{% url 'cs' i.id %}" class="form-control my-2 btn btn-outline-success">Credit</a>
+                                </div>
+                                <div class="col">
+                                    <a href="{% url 'ups' i.id %}" class="form-control my-2 btn btn-outline-info">Edit</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <table class="table">
+                {% if request.user.pfupd == 1 %}
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Salary</th>
+                    <th>Credited Salary</th>
+                    <th>Status</th>
+                </tr>
+                {% for i in y %}
+                    {% if i.stn == request.user.username %}
+                    <tr>
+                        <td>{{i.stn}}</td>
+                        <td>
+                            {% if i.sttp == 'Receptionist' %}
+                                <p class="badge badge-danger">Receptionist</p>
+                            {% elif i.sttp == 'House Keeping' %}
+                                <p class="badge badge-info">House Keeping</p>
+                            {% elif i.sttp == 'Porter' %}
+                                <p class="badge badge-warning">Porter</p>
+                            {% elif i.sttp == 'Restaurant Staff' %}
+                                <p class="badge badge-primary">Restaurant Staff</p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{i.salary}}
+                        </td>
+                        <td>{{i.crsal}}</td>
+                        <td>{{i.status}}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                {% else %}
+                    <p><strong>Welcome, {{request.user}}</strong></p>
+                    <p>Please update your profile!!</p>
+                    {% endif %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

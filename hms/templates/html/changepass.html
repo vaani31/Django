@@ -1,0 +1,38 @@
+{% extends 'html/base.html' %}
+{% block title %}Change Password{% endblock %}
+{% block content %}
+<style type="text/css">
+    .errorlist{
+        list-style-type: none;
+        color:red;
+        margin:0px;
+        padding:0px;
+    }
+</style>
+<div class="container-fluid mt-4">
+    <div class="card col-md-5 mx-auto shadow-lg">
+        <div class="card-body">
+            <h3 style="text-align: center;">Change Password</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {% for i in n %}
+                    {{i}}
+                    {% for e in p %}
+                        {% if e.0 in i.label_tag %}
+                            {{e.1}}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                <div class="row">
+                    <div class="col">
+                        <input type="reset" value="Clear" class="form-control btn btn-outline-warning my-2">
+                    </div>
+                    <div class="col">
+                        <input type="submit" value="Submit" class="form-control btn btn-outline-success my-2">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

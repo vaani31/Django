@@ -1,0 +1,58 @@
+{% extends 'html/base.html' %}
+{% block title %}Booking{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-6 mx-auto shadow-lg">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'dshbd' %}" class="btn btn-outline-info form-control w-75">Go Back</a>
+                </div>
+                <div class="col">
+                    <h3>Payment</h3>
+                </div>
+                <div class="col"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col mt-3">
+                    <label><strong>Check the amount that you have to pay:</strong></label>
+                </div>
+                <div class="col">
+                    <a href="{% url 'fee' %}" class="form-control my-2 btn btn-outline-warning w-75">Check your Fee</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <br>
+                    <label><strong>UPI ID: 1234567890@ybl</strong></label>
+                    <h3></h3>
+                </div>
+            </div>
+            <label><strong>QR code:</strong></label>
+            <div class="row">
+                <div class="col">
+                    <h3></h3>
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.ZXDs7Hkro7twvySY8E3bGQHaHa&pid=Api&P=0&h=180" alt="">
+                </div>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <br>
+                <label><strong>Upload Screenshot of Payment :</strong></label>
+                {% for i in p %}
+                    {{i}}
+                {% endfor %}
+                <div class="row">
+                    <div class="col">
+                        <input type="reset" value="Clear" class="btn btn-outline-danger form-control my-3">
+                    </div>
+                    <div class="col">
+                        <input type="submit" value="Submit" class="btn btn-outline-success form-control my-3">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

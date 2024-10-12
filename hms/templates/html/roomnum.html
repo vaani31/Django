@@ -1,0 +1,101 @@
+{% extends 'html/base.html' %}
+{% block title %}Room Numbers{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-7 mx-auto shadow-lg">
+        <div class="card-body">
+            <h3 style="text-align: center; font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"><strong><i>**Room Numbers**</i></strong></h3><br>
+            {% if request.user.pfupd == 1 or request.user.is_superuser %}
+            <table class="table">
+                <tr>
+                    <th>Username</th>
+                    <th>Room Type</th>
+                    <th>Room Number</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                </tr>
+                {% for j in n %}
+                {% if request.user.role1 == 'User' %}
+                <tr>
+                    {% for i in q %}
+                    {% if forloop.parentloop.counter == forloop.counter %}
+                        {% if i == request.user.username %}
+                            <td>{{i}}</td>
+                            <td>
+                                {% if j.rbtype == '1N' %}
+                                    <p>1-Adult/Room(Non-AC)</p>
+                                {% elif j.rbtype == '2N' %}
+                                    <p>2-Adults/Room(Non-AC)</p>
+                                {% elif j.rbtype == '1A' %}
+                                    <p>1-Adults/Room(AC)</p>
+                                {% elif j.rbtype == '2A' %}
+                                    <p>2-Adults/Room(AC)</p>
+                                {% else %}
+                                {% endif %}
+                            </td>
+                            <td>{{j.rnum}}</td>
+                            <td>{{j.startdate}}</td>
+                            <td>{{j.enddate}}</td>
+                            <td>
+                                {% if j.rbstatus == 'p' %}
+                                    <p class="badge badge-primary">Pending</p>
+                                {% elif j.rbstatus == 'a' %}
+                                    <p class="badge badge-success">Approved</p>
+                                {% elif j.rbstatus == 'd' %}
+                                    <p class="badge badge-danger">Declined</p>
+                                {% else %}
+                                {% endif %}
+                            </td>
+                            <td>{{j.mgdesc}}</td>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% else %}
+                <tr>
+                        {% for i in q %}
+                            {% if forloop.parentloop.counter == forloop.counter %}
+                                <td>{{i}}</td>
+                                <td>
+                                    {% if j.rbtype == '1N' %}
+                                        <p>1-Adult/Room(Non-AC)</p>
+                                    {% elif j.rbtype == '2N' %}
+                                        <p>2-Adults/Room(Non-AC)</p>
+                                    {% elif j.rbtype == '1A' %}
+                                        <p>1-Adults/Room(AC)</p>
+                                    {% elif j.rbtype == '2A' %}
+                                        <p>2-Adults/Room(AC)</p>
+                                    {% else %}
+                                    {% endif %}
+                                </td>
+                                <td>{{j.rnum}}</td>
+                                <td>{{j.startdate}}</td>
+                                <td>{{j.enddate}}</td>
+                                <td>
+                                    {% if j.rbstatus == 'p' %}
+                                        <p class="badge badge-primary">Pending</p>
+                                    {% elif j.rbstatus == 'a' %}
+                                        <p class="badge badge-success">Approved</p>
+                                    {% elif j.rbstatus == 'd' %}
+                                        <p class="badge badge-danger">Declined</p>
+                                    {% else %}
+                                    {% endif %}
+                                </td>
+                                <td>{{j.mgdesc}}</td>
+                                
+                            {% endif %}
+                        {% endfor %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+            {% else %}
+            <p><strong>Welcome {{request.user}},</strong></p>
+            <p>Please update your profile!!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

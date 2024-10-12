@@ -1,0 +1,62 @@
+{% extends 'html/base.html' %}
+{% block title %}Rooms{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-7 mx-auto shadow-lg">
+        <div class="card-body">
+            <h3 style="text-align: center;">Rooms</h3>
+            <table class="table">
+                <tr>
+                    <th>Room Number</th>
+                    <th>Room Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Room Allocation</th>
+                </tr>
+                {% for i in x %}
+                    <tr>
+                        <td>{{i}}</td>
+                        {% for j in y %}
+                            {% if forloop.parentloop.counter == forloop.counter %}
+                            <td>
+                                {% if j == '1N' %}
+                                    <p>1-Adult/Room(Non-AC)</p>
+                                {% elif j == '2N' %}
+                                    <p>2-Adults/Room(Non-AC)</p>
+                                {% elif j == '1A' %}
+                                    <p>1-Adult/Room(AC)</p>
+                                {% elif j == '2A' %}
+                                    <p>2-Adults/Room(AC)</p>
+                                {% else %}
+                                {% endif %}
+                            </td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>
+                            {% for j in x1 %}
+                                {% if forloop.parentloop.counter == forloop.counter %}
+                                    {{j}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for j in y1 %}
+                                {% if forloop.parentloop.counter == forloop.counter %}
+                                    {{j}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for j in z %}
+                                {% if forloop.parentloop.counter == forloop.counter %}
+                                    {{j}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

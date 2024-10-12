@@ -1,0 +1,31 @@
+{% extends 'html/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-7 mx-auto shadow-lg">
+        <div class="card-body">
+            <h3 style="text-align: center; font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"><strong><i>**Dashboard**</i></strong></h3>
+            <hr>
+            {% if request.user.role1 == 'User' and request.user.pfupd == 1 %}
+                <div class="row">
+                    <div class="col">
+                        <p><img src="https://tse1.mm.bing.net/th?id=OIP.8uNnufu1-c52kdV4HmDCzQHaDt&pid=Api&P=0&h=180" width="100%" height="200px"></p>
+                        <a href="{% url 'prevbook' %}" class="btn btn-outline-dark form-control my-2">Previous bookings</a>
+                    </div>
+                    <div class="col">
+                        <p><img src="https://tse4.mm.bing.net/th?id=OIP.U9h4Qy9KwyzxTKUw458sFwHaFj&pid=Api&P=0&h=180" width="100%" height="200px"></p>
+                        <a href="{% url 'pr' %}" class="btn btn-outline-warning form-control my-2">Room Prices</a>
+                    </div>
+                    <div class="col">
+                        <p><img src="https://tse4.mm.bing.net/th?id=OIP.e_orW2gm68mMtjkQ818oiwHaGo&pid=Api&P=0&h=180" width="100%" height="200px"></p>
+                        <a href="{% url 'book' request.user.id %}" class="btn btn-outline-info form-control my-2">Book a Room</a>
+                    </div>
+                </div>
+            {% else %}
+            <p><strong>Welcome {{request.user}},</strong></p>
+            <p>Please update your profile!!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

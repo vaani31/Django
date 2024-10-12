@@ -1,0 +1,23 @@
+{% extends 'html/base.html' %}
+{% block title %}Delete Booking{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card col-md-5 mx-auto shadow-lg">
+        <div class="card-body">
+            <h3>Delete Booking</h3>
+            <h5>Are you sure you want to delete the record?</h5>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <a href="{% url 'rbl' %}" class="form-control btn btn-outline-info">Back</a>
+                    </div>
+                    <div class="col">
+                        <input type="submit" value="Delete" class="form-control btn btn-outline-danger">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
